@@ -1,0 +1,82 @@
+使用栈的实现方式就不写了，我们来看一个效率更高的实现方式
+
+### 1，公式推导
+
+因为题中的运算顺序是```乘法(*)，除法(/)，加法(+)和减法(-)```，比如```10*9/8+7-6```，我们先不看后面的减法，直接看前面的3项，也就是```n*(n-1)/(n-2)```，我们来分析一下这个公式，如下图所示
+
+![597e6179e4fc426b69d2a12ea9db016.jpg](https://pic.leetcode-cn.com/1617241963-BQGMiI-597e6179e4fc426b69d2a12ea9db016.jpg)
+
+通过上面的分析我们发现，当```n>4```的时候，```n*(n-1)/(n-2)就等于n+1```，但当n小于等于4的时候我们要分开讨论，很明显
+- n=4的时候，结果是7
+- n=3的时候，结果是6
+- n=2的时候，结果是2
+- n=1的时候，结果是1
+
+<br> </br>
+
+当n大于4的时候我们要展开讨论
+
+**1，n%4==0**
+
+比如n=12，
+![image.png](https://pic.leetcode-cn.com/1617243261-TcfSHf-image.png)
+
+<br> </br>
+
+**2，n%4==1**
+
+比如n=13，
+
+![image.png](https://pic.leetcode-cn.com/1617243155-TZYQJv-image.png)
+
+<br> </br>
+
+**3，n%4==2**
+
+比如n=14，
+
+![image.png](https://pic.leetcode-cn.com/1617243161-zPpzck-image.png)
+
+<br> </br>
+
+**4，n%4==3**
+
+比如n=15，
+
+![image.png](https://pic.leetcode-cn.com/1617243145-sStBrX-image.png)
+
+<br> </br>
+
+通过上面的规律我们可以发现，无论n多大，**中间的我们都可以约掉**，代码如下
+
+* java
+
+```java
+public int clumsy(int N) {
+    if (N == 1 || N == 2)
+        return N;
+    if (N == 3)
+        return 6;
+    if (N == 4)
+        return 7;
+    //上面是特殊情况，下面是根据公式推算的
+    if (N % 4 == 0)
+        return N + 1;
+    if (N % 4 == 1 || N % 4 == 2)
+        return N + 2;
+    return N - 1;
+}
+```
+
+看一下运行结果
+
+![image.png](https://pic.leetcode-cn.com/1617243569-YEqsjq-image.png)
+
+<br> </br>
+
+我把部分算法题整理成了PDF文档，截止目前总共有**900多页**，大家可以下载阅读
+**链接**：https://pan.baidu.com/s/1hjwK0ZeRxYGB8lIkbKuQgQ
+**提取码**：6666
+
+#### 如果觉得有用就给个赞吧，还可以关注我的[LeetCode主页](https://leetcode-cn.com/u/sdwwld/)查看更多的详细题解
+

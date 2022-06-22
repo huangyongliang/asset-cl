@@ -1,0 +1,57 @@
+按行进行遍历，其中`col[x]`,`dg[u+i]`,`udg[n−u+i]`分别记录的是该位置的列，斜，反斜线上是否已经存在过，若均不存在，填入皇后，并递归到下一行.
+对角线` dg[u+i]`，反对角线`udg[n−u+i]`中的下标` u+i`和` n−u+i`表示的是截距
+
+下面分析中的(x,y)相当于上面的(u,i):
+
+- 反对角线 `y=x+b`, 截距 `b=y−x`，因为我们要把 b 当做数组下标来用，显然` b `不能是负的，所以我们加上` +n `（实际上`+n+4`,`+2n`都行），来保证是结果是正的，即 `y - x + n`
+
+- 而对角线 `y=−x+b`, 截距是` b=y+x`，这里截距一定是正的，所以不需要加偏移量
+
+目的: 找一些合法的下标来表示`dg`或`udg`是否被标记过，所以如果你愿意，你取 `udg[n+n−u+i]`也可以，只要所有`(u,i)`对可以映射过去就行
+![51_1.png](https://pic.leetcode-cn.com/1654873021-SGYEVC-51_1.png)
+
+* 
+
+```
+class Solution {
+    boolean[] col, dg, udg;//col列 dg对角线 udg副对角线
+    char[][] g; //存储图
+    List<List<String>> res = new LinkedList<>();
+    public List<List<String>> solveNQueens(int n) {
+        col = new boolean[n]; //对角线元素 2n-1 
+        dg = new boolean[n * 2];
+        udg = new boolean[n * 2];
+        g = new char[n][n];
+        dfs(0, n);// 进行递归，从第0行开始放，第n行结束
+        return res;
+    }
+
+    public void dfs(int u, int n){
+        // n行都放完了，加入到res中
+        if (u == n){
+            List<String> cur = new ArrayList<>();
+            for (int i = 0; i < n; i++){
+                StringBuilder sb = new StringBuilder();
+                for (int j = 0; j < n; j++){
+                    sb.append(g[i][j] == 'Q' ? "Q" : ".");
+                }
+                cur.add(sb.toString());
+            }
+            res.add(cur);
+            return;
+        }
+        for(int i = 0; i < n; i++) {
+            // 列是i，行是u，对角线也有n条（要与某一行相交），每一条用一个数组下标表示
+            // 剪枝 行，列，对角线，斜对角线不可同时存在
+            if(!col[i] && !dg[i + u] && !udg[i - u + n]){
+                g[u][i] = 'Q';
+                col[i] = dg[i+u] = udg[i -u +n] = true;
+                dfs(u+1,n);
+                col[i] = dg[i+u] = udg[i -u +n] = false; //回溯
+                g[u][i] = '.';
+            }
+        }
+    } 
+} 
+```
+

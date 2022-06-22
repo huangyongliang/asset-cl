@@ -1,0 +1,23 @@
+    class Solution {
+        public int strStr(String haystack, String needle) {
+            if (needle.length() == 0) {
+                return 0;
+            }
+            if (haystack.length() < needle.length()) {
+                return -1;
+            }
+            int i = 0;
+            while (i + needle.length() <= haystack.length()) {
+                if (haystack.substring(i, i + needle.length())
+                    .equals(needle)) {
+                    return i;
+                }
+                i++;
+            }
+            return -1;
+        }
+
+    }
+
+//runtime:0 ms
+//memory:39.3 MB

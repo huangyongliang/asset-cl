@@ -1,0 +1,66 @@
+### 解题思路
+
+除法其实是依次相减到余数小于被除数为止，时间复杂度o(N)；通过位移可时效指数级减少，时间复杂度是o(logN)
+先找结果的二进制最高位，再依次找到二进制位的值；
+例子：16 / 3 = 5 （5的二进制：101）即 16 - （3 << 2） - (3 << 0) = 1 < 3 ；先找到5的二进制最高位是2，再依次找各位的值；
+注意事项：数组越界问题，负数的最小值转正会越界
+
+### 代码
+
+* java
+
+```java
+class Solution {
+    public int divide(int dividend, int divisor) {
+        //解题思路：除法其实是依次相减到余数小于被除数为止，时间复杂度o(N)；通过位移可时效指数级减少，时间复杂度是o(logN)
+        //先找结果的二进制最高位，再依次找到二进制位的值；
+        //例子：16 / 3 = 5 （5的二进制：101）即 16 - （3 << 2） - (3 << 0) = 1 < 3 
+        //注意事项：数组越界问题，负数的最小值转正会越界
+        
+        if(divisor == 1){
+            return dividend;
+        }
+        if(divisor == -1){
+            return dividend == Integer.MIN_VALUE ? Integer.MAX_VALUE : -dividend;
+        }
+        //处理除数边界问题
+        if(divisor == Integer.MIN_VALUE){
+            return dividend == Integer.MIN_VALUE ? 1 : 0;
+        }
+
+        //转负处理(dividend可能是Integer.MIN_VALUE，负的最小值转正会越界，只能用负数)
+        int a = dividend < 0 ? dividend : -dividend;
+        int b = divisor < 0 ? divisor : -divisor;
+        if(a > b){
+            return 0;
+        }
+
+        //结果的二进制位的最高位
+        int max = 0;
+        int temp = 0;
+        for(int i = 0; i < 31; i++){
+            temp = b << i;
+            if(a - temp > temp){
+                max = i ;
+                break;
+            }
+        }
+        //找到结果
+        int result = 0;
+        for(int i = max; i >= 0; i--){
+            temp = b << i;
+            if(a <= temp){
+                result += (1<<i);
+                //防止越界
+                if(temp == Integer.MIN_VALUE){
+                    break;
+                }
+                a -= temp;
+            }
+        }
+        return divisor > 0 == dividend > 0 ? result : -result;
+    }
+
+}
+```
+

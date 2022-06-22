@@ -1,0 +1,84 @@
+因为题目中**固定**了`words`中的单词长度，假设单词长度为`step`，一共有`m`个单词，那么要求的所匹配的字符串长度为`m * step`，可以以`m * step`为**滑动窗口**，每次移动`step`步，来寻找符合条件的子字符串。
+
+如果滑动窗口只从`0`开始移动，那么不会**覆盖**所有的子串，所以需要分别从`0 ~ step - 1`下标的位置**开始移动**，直到末尾。
+
+使用`map`来存储`words`中的所有单词，重复单词计数加一。在维护滑动窗口的过程中，同样使用一个`window`的`map`集合来维护**当前窗口所有的words中的单词**，如果当前窗口的**重复单词数量**刚好等于`words`中的重复单词数量。就将**计数器**`cnt + 1`， 如果`cnt = map.size()`，就说明当前窗口**包括**了所有`words`中的单词。此时的**左指针**就是开始。
+
+* 
+
+```
+class Solution {
+    public static List<Integer> findSubstring(String s, String[] words) {
+        Map<String, Integer> map = new HashMap<>();
+        for(String word : words) {
+            map.put(word, map.getOrDefault(word, 0) + 1);
+        }
+        int step = words[0].length();
+        int n = s.length();
+        int m = words.length;
+        if(n < m * step) {
+            return new ArrayList<>();
+        }
+
+        List<Integer> ans = new ArrayList<>();
+        // 滑动窗口从0~step-1开始，每次移动step步
+        for(int i = 0; i < step; ++i) {
+            int left = i;
+            int right = i;
+            // 右边界超出字符串长度
+            if(right + m * step > n) {
+                break;
+            }
+
+            Map<String, Integer> window = new HashMap<>();
+            int cnt = 0;
+            
+            // 滑动窗口
+            while(right + step <= n) {
+                // 移动右指针，形成初始窗口
+                while (right - left < m * step) {
+                    String str = s.substring(right, right + step);
+                    right += step;
+                    // 如果当前单词在字典中就计数
+                    if(map.containsKey(str)) {
+                        int num = window.getOrDefault(str, 0);
+                        if(num + 1 == map.get(str)) {
+                            cnt++;
+                        } else if(num == map.get(str) && num + 1 > map.get(str)) {
+                            cnt--;
+                        }
+                        window.put(str, num + 1);
+                    }
+                }
+
+                if(cnt == map.size()) {
+                    ans.add(left);
+                }
+
+                // 移动左指针
+                String str = s.substring(left, left + step);
+                left += step;
+                // 如果当前单词在字典中就计数
+                if(map.containsKey(str)) {
+                    int num = window.getOrDefault(str, 0);
+                    if(num - 1 == map.get(str)) {
+                        cnt++;
+                    } else if(num == map.get(str) && num - 1 < map.get(str)) {
+                        cnt--;
+                    }
+
+                    if(num - 1 == 0) {
+                        window.remove(str);
+                    } else {
+                        window.put(str, num - 1);
+                    }
+                }
+                
+                
+            }
+        }
+        return ans;
+    }
+}
+```
+

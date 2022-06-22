@@ -1,0 +1,62 @@
+棋盘的宽度就是for循环的长度，递归的深度就是棋盘的高度
+
+* cpp
+
+```cpp
+class Solution {
+public:
+    vector<vector<string>> solveNQueens(int n) {
+        ans.clear();
+        vector<string> chessboard(n, string(n, '.'));
+        backTrack(n, 0, chessboard);
+        return ans;
+    }
+
+private:
+    void backTrack(int n, int row, vector<string>& chessboard) {
+        // 递归边界(row出界)
+        if (row == n) {
+            ans.push_back(chessboard);
+            return;
+        }
+
+        for (int col = 0; col < n; ++col) {
+            if (isValid(row, col, chessboard, n)) {
+                // 1、记忆
+                chessboard[row][col] = 'Q';
+                // 2、dfs
+                backTrack(n, row + 1, chessboard);
+                // 3、还原
+                chessboard[row][col] = '.';
+            }
+        }
+    }
+
+    bool isValid(int row, int col, vector<string>& chessboard, int n) {
+        // 检查列
+        for (int i = 0; i < row; ++i) {
+            if (chessboard[i][col] == 'Q') {
+                return false;
+            }
+        }
+        // 检查副对角线方向
+        for (int i = row - 1, j = col - 1; i >= 0 && j >= 0; --i, --j) {
+            if (chessboard[i][j] =='Q') {
+                return false;
+            }
+        }
+        // 检查主对角线方向
+        for (int i = row - 1, j = col + 1; i >= 0 && j < n; --i, ++j) {
+            if (chessboard[i][j] == 'Q') {
+                return false;
+            }
+        }
+        return true;
+    }
+
+private:
+    vector<vector<string>> ans;
+
+};
+```
+

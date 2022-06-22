@@ -1,0 +1,41 @@
+### 解题思路
+
+双指针，利用快慢的间隔实现一次循环
+
+### 代码
+
+* javascript
+
+```javascript
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @param {number} n
+ * @return {ListNode}
+ */
+var removeNthFromEnd = function(head, n) {
+    let slow = head
+    let fast = head
+    let gap = 0 
+    while(fast.next!==null){
+        fast = fast.next
+        if(gap>=n){
+            slow = slow.next
+        }
+        gap++
+    }
+    if(gap<n){
+        return head.next
+    }
+    slow.next = slow.next.next
+    return head
+    
+};
+```
+
