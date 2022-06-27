@@ -1,0 +1,41 @@
+### 代码
+
+* java
+
+```java
+class Solution {
+    public int[][] insert(int[][] intervals, int[] newInterval) {
+        int n = intervals.length;
+        // 在 intervals 中查找最后一个右端点小于 newInterval 左端点的区间
+        // 该区间（包含）及之前的区间不用合并
+        int left = 0;
+        int right = n;
+        int mid;
+        while (left < right) {
+            mid = left + (right - left) / 2;
+            if (intervals[mid][1] < newInterval[0]) left = mid + 1;
+            else right = mid;
+        }
+        int start = right - 1;
+        // 在 intervals 中查找第一个左端点大于 newInterval 右端点的区间
+        // 该区间（包含）及之后的区间不用合并
+        left = 0;
+        right = n;
+        while (left < right) {
+            mid = left + (right - left) / 2;
+            if (intervals[mid][0] > newInterval[1]) right = mid;
+            else left = mid + 1;
+        }
+        int end = left;
+        // 合并区间
+        int[][] ans = new int[(start + 1) + 1 + (n - end)][2];
+        int idx = 0;
+        for (int i = 0; i <= start; i++) ans[idx++] = intervals[i];
+        ans[idx][0] = Math.min(newInterval[0], start + 1 < n ? intervals[start + 1][0] : newInterval[0]);
+        ans[idx++][1] = Math.max(newInterval[1], end - 1 >= 0 ? intervals[end - 1][1] : newInterval[1]);
+        for (int i = end; i < n; i++) ans[idx++] = intervals[i];
+        return ans;
+    }
+}
+```
+

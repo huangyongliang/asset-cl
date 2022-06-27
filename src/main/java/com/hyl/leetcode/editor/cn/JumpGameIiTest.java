@@ -21,9 +21,9 @@ public class JumpGameIiTest {
             int border = 0;
             int max = 0;
             int step = 0;
-            for(int i = 0;i<nums.length-1;i++){
-                max = Math.max(max, nums[i]+i);
-                if (i == border){
+            for (int i = 0; i < nums.length - 1; i++) {
+                max = Math.max(max, nums[i] + i);
+                if (i == border) {
                     border = max;
                     step++;
                 }
