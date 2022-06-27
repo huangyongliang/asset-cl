@@ -1,0 +1,44 @@
+class Solution {
+    public int[][] insert(int[][] intervals, int[] newInterval) {
+
+        Arrays.sort(intervals, Comparator.comparingInt(o->o[0]));
+
+        boolean start = true;
+        boolean end = false;
+        int midB = 0;
+        int midE = 0;
+        for (int i = 0; i < intervals.length;i++){
+            if (end){
+                if (newInterval[1]<intervals[i][0]){
+                    midE = i-1;
+                    break;
+                }
+            }
+            if (start){
+                if (intervals[i][1]>= newInterval[0]){
+                    midB = i;
+                    start = false;
+                    end = true;
+                }
+            }
+        }
+        int len = intervals.length- (midE-midB);
+        int [][] result = new int[len][];
+        int index = 0;
+        for (int i = 0 ;i<midB;i++){
+            result[index++] = intervals[i];
+        }
+        int[]mind = {Math.min(intervals[midB][0],newInterval[0]),Math.max(intervals[midE][1],newInterval[1])};
+        result[index++] = mind;
+        for (int i=midE+1;i<intervals.length;i++){
+            result[index++] = intervals[i];
+        }
+        return result;
+    }
+}
+
+//runtime_error:java.lang.ArrayIndexOutOfBoundsException: Index 0 out of bounds for length 0
+  at line 31, Solution.insert
+  at line 54, __DriverSolution__.__helper__
+  at line 87, __Driver__.main
+//last_testcase:[] [5,7]
