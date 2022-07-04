@@ -1,0 +1,49 @@
+class CQueue {
+
+    Deque<Integer> stack ;
+    Deque<Integer> stack2;
+
+    public CQueue() {
+        stack =new ArrayDeque<>();
+        stack2 = new ArrayDeque<>();
+    }
+    
+    public void appendTail(int value) {
+        if (stack.isEmpty()) {
+            stack2.push(value);
+        } else {
+            stack.push(value);
+        }
+    }
+    
+    public int deleteHead() {
+        if (stack.isEmpty()&&stack2.isEmpty()) {
+            return -1;
+        }
+        if (stack.isEmpty()) {
+            while (!stack2.isEmpty()) {
+                stack.push(stack2.pop());
+            }
+            return stack.pop();
+        } else {
+            while (!stack.isEmpty()) {
+                stack2.push(stack.pop());
+            }
+           return stack2.pop();
+        }
+    }
+}
+
+/**
+ * Your CQueue object will be instantiated and called as such:
+ * CQueue obj = new CQueue();
+ * obj.appendTail(value);
+ * int param_2 = obj.deleteHead();
+ */
+
+//total_testcases:55
+//total_correct:2
+//input_formatted:["CQueue","deleteHead","appendTail","deleteHead","appendTail","appendTail","deleteHead","deleteHead","deleteHead","appendTail","deleteHead","appendTail","appendTail","appendTail","appendTail","appendTail","appendTail","deleteHead","deleteHead","deleteHead","deleteHead"]
+[[],[],[12],[],[10],[9],[],[],[],[20],[],[1],[8],[20],[1],[11],[2],[],[],[],[]]
+//expected_output:[null,-1,null,12,null,null,10,9,-1,null,20,null,null,null,null,null,null,1,8,20,1]
+//code_output:[null,-1,null,12,null,null,10,9,-1,null,20,null,null,null,null,null,null,1,2,8,11]

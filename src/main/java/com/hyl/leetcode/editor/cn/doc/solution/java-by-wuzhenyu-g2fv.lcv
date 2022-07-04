@@ -1,0 +1,44 @@
+### 解题思路
+
+思路如何清晰? 特么的逐一试错得出来的= =
+
+### 代码
+
+* java
+
+```java
+class Solution {
+    public boolean isNumber(String s) {
+        // wuzhenyu
+        s = s.trim();
+        int pos = 0, len = s.length();
+        char[] cs = s.toCharArray();
+        pos = checkForInteger(cs, pos, len);
+        pos = checkForDecimal(cs, pos, len);
+        pos = checkForSN(cs, pos, len);
+        return pos == len && len != 0;
+    }
+    int checkForInteger(char[] cs, int pos, int len) {
+        if (pos >= len || pos == -1) return -1;
+        if (cs[pos] == '-' || cs[pos] == '+') pos++;
+        if (pos == len) return -1;
+        while (pos < len && Character.isDigit(cs[pos])) pos++;
+        return pos;
+    }
+    int checkForDecimal(char[] cs, int pos, int len) {
+        if (pos >= len || pos == -1 || cs[pos] != '.') return pos;
+        boolean post = pos == len - 1 || !Character.isDigit(cs[pos + 1]);
+        boolean pre = pos == 0 || !Character.isDigit(cs[pos - 1]);
+        if (post && pre) return -1; //前后都不满足条件
+        pos++;
+        while (pos < len && Character.isDigit(cs[pos])) pos++;
+        return pos;
+    }
+    int checkForSN(char[] cs, int pos, int len) {
+        if (pos >= len || pos <= -1 || (cs[pos] != 'e' && cs[pos] != 'E')) return pos;
+        if (pos == 0 || cs[pos - 1] == '+' || cs[pos - 1] == '-') return -1; // 之前至少一个数
+        return checkForInteger(cs, ++pos, len);
+    }
+}
+```
+

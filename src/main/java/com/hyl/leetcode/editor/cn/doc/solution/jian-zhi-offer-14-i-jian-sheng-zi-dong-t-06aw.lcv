@@ -1,0 +1,68 @@
+### 解题思路
+
+![image.png](https://pic.leetcode-cn.com/1635867808-HCReZK-image.png)
+
+动态规划，自下而上，思路较为简单。
+
+### 代码
+
+* java
+
+```java
+class Solution {
+    public int cuttingRope(int n) {
+        //定义dp数组，dp[i]表示长度为i的绳子剪成m端后长度的最大乘积(m>1)
+        int dp[] = new int[n+1];
+        //初始化
+        dp[2] = 1;
+        //目标：求出dp[n]
+        //dp[2]已知，从dp[3]开始求，直到求出dp[n]
+        for(int i = 3;i <= n;i++){
+            //首先对绳子剪长度为j的一段,其中取值范围为 2 <= j < i
+            for(int j = 2;j < i;j++){
+                
+                //转移方程如下
+                dp[i] = Math.max(dp[i],Math.max(j*(i-j),j*dp[i-j]));
+                //Math.max(j*(i-j),j*dp[i-j]是由于减去第一段长度为j的绳子后，可以继续剪也可以不剪
+                //Math.max(dp[i],Math.max(j*(i-j),j*dp[i-j]))是当j不同时，求出最大的dp[i]
+            }
+        }
+        //现在已经求出每个长度i对应的最大乘积，返回dp[n]
+        return dp[n];
+    }
+}
+```
+
+时间复杂度为O(n^2),空间复杂度为O(n)。
+
+### 解题思路
+
+![image.png](https://pic.leetcode-cn.com/1635955324-rRANFu-image.png)
+
+做完剪绳子||,补充一个贪心的思路
+贪心算法的思路是：当n大于4时，尽可能多的剪出长度为3的段，当n<=4时，不再剪直接乘上即可，
+是有一种自上而下的思想，具体的数学证明可以参考各位大佬的题解。
+
+### 代码
+
+* java
+
+```java
+class Solution {
+    public int cuttingRope(int n) {
+        if(n == 2)return 1;
+        if(n == 3)return 2;
+        if(n == 4)return 4;
+        int res = 1;
+        while(n > 4){
+            res *= 3;
+            n -= 3;
+        }
+        return res*n;
+    }
+}
+```
+
+时间复杂度为O(n)，空间复杂度为O(1).
+
+备战春招之每日一题第1题，感谢阅读，共同进步！

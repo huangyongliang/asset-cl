@@ -1,0 +1,49 @@
+class CQueue {
+
+    Deque<Integer> stack =new ArrayDeque<>();
+    Deque<Integer> stack2 = new ArrayDeque<>();
+
+    public CQueue() {
+
+    }
+    
+    public void appendTail(int value) {
+        if (stack.isEmpty()) {
+            stack2.push(value);
+        } else {
+            stack.push(value);
+        }
+    }
+    
+    public int deleteHead() {
+        int result;
+        if (stack.isEmpty()) {
+            while (!stack2.isEmpty()) {
+                stack.push(stack2.pop());
+            }
+            result =  stack.pop();
+        } else {
+            while (!stack.isEmpty()) {
+                stack2.push(stack.pop());
+            }
+            result =  stack2.pop();
+        }
+        return result;
+    }
+}
+
+/**
+ * Your CQueue object will be instantiated and called as such:
+ * CQueue obj = new CQueue();
+ * obj.appendTail(value);
+ * int param_2 = obj.deleteHead();
+ */
+
+//runtime_error:java.util.NoSuchElementException
+  at line 362, java.base/java.util.ArrayDeque.removeFirst
+  at line 593, java.base/java.util.ArrayDeque.pop
+  at line 24, CQueue.deleteHead
+  at line 64, __Driver__.__helperSelectMethod__
+  at line 82, __Driver__.__helper__
+  at line 103, __Driver__.main
+//last_testcase:["CQueue","appendTail","deleteHead","deleteHead","deleteHead"] [[],[3],[],[],[]]
