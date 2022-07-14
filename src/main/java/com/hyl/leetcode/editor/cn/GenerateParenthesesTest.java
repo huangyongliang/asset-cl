@@ -12,15 +12,13 @@ public class GenerateParenthesesTest {
     @Test
     public  void test() {
         Solution solution = new Solution();
-        List<String> result = solution.generateParenthesis(3);
+        List<String> result = solution.generateParenthesis(4);
         System.out.println(result);
 
     }
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public List<String> generateParenthesis(int n) {
-
-
         if (n == 0) {
             return Collections.singletonList("");
         }
@@ -33,15 +31,15 @@ class Solution {
 
         List<String> result = new ArrayList<>();
 
-        for (int q = 0; q <= n-1; q++) {
-            List<String> qList = generateParenthesis(q);
-            List<String> pList = generateParenthesis(n-1-q);
-            for (String qStr : qList) {
-                for (String pStr : pList) {
-                    String sb = "(" + qStr + ")" + pStr;
-                    result.add(sb);
+        for (int q = 0 ;q<n;q++){
+            List<String> left = generateParenthesis(q);
+            List<String> right = generateParenthesis(n-1-q);
+            for(String l:left){
+                for(String r:right){
+                    result.add("("+l+")"+r);
                 }
             }
+
         }
         return result;
     }

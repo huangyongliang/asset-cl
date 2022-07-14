@@ -1,0 +1,47 @@
+class Solution {
+    public int lastRemaining(int n, int m) {
+
+        Node head = new Node(-1);
+        Node index = head;
+        for (int i = 0 ;i <n;i++){
+            index.next = new Node(i);
+            index = index.next;
+        }
+        // 循环
+        index.next = head.next;
+        int count = n;
+        Node pre = index;
+        index = head.next;
+        while (count>1){
+            for (int i =0 ;i<m-1;i++ ){
+                pre = index;
+                index = index.next;
+            }
+            pre.next = index.next;
+            index = pre.next;
+            count--;
+        }
+
+        return index.val;
+
+    }
+
+
+    public class Node{
+        int val;
+        Node next;
+        public Node(int i){val = i;}
+    }
+
+}
+
+//runtime:N/A
+//memory:N/A
+//total_testcases:36
+//total_correct:26
+//input_formatted:70866
+116922
+//expected_output:64165
+//code_output:
+//runtime_error:
+//last_testcase:70866 116922

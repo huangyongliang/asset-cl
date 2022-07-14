@@ -1,0 +1,38 @@
+class Solution {
+    public int translateNum(int num) {
+        if (num < 10) {
+            return 1;
+        }
+
+        int count = 0;
+        int i = 0;
+        while (num > 0) {
+            int cur = num % 10;
+            num /= 10;
+            if (cur == 0) {
+                i++;
+            } else if (cur == 1) {
+                if (i == 0) {
+                    count++;
+                } else {
+                    i = 0;
+                }
+            } else {
+                if (i == 0) {
+                    count++;
+                } else {
+                    count += i + 1;
+                    i = 0;
+                }
+            }
+        }
+        
+        return count;
+    }
+}
+
+//total_testcases:49
+//total_correct:10
+//input_formatted:26
+//expected_output:1
+//code_output:2

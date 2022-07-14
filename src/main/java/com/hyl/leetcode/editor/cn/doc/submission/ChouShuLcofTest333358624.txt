@@ -1,0 +1,26 @@
+class Solution {
+    public int nthUglyNumber(int n) {
+
+        long[] factors = new long[]{2,3,5};
+        Set<Long> checkSet = new HashSet<>();
+
+
+        PriorityQueue<Long> minHeap = new PriorityQueue<>();
+        minHeap.add(1L);
+        long result = 0;
+        for (int i=0;i<n;i++){
+            result = minHeap.poll();
+            for (long factor:factors){
+                long temp = result * factor;
+                if (checkSet.add(temp)){
+                    minHeap.add(temp);
+                }
+            }
+        }
+
+        return (int)result;
+    }
+}
+
+//runtime:49 ms
+//memory:41.5 MB

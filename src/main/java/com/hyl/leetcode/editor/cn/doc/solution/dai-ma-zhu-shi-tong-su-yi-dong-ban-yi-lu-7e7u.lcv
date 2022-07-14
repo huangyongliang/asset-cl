@@ -1,0 +1,53 @@
+![图片.png](https://pic.leetcode-cn.com/1657381572-OhOLTi-%E5%9B%BE%E7%89%87.png)
+
+* java
+
+```java
+class Solution {
+    public int strToInt(String str) {
+        // 字符串转char数组方便操作
+        char[] chars = str.toCharArray();
+        int index = 0;
+
+        // 跳过开头空格
+        while (index < chars.length && chars[index]==' ')
+                index++;
+        // 判断字符串是否为空以及是否全是空格
+        if (chars.length==0 || (index == chars.length))
+            return 0;
+
+        // 判断并跳过符号位
+        boolean isNegative = false;
+        if (chars[index]=='-') {
+            isNegative = true;
+            index++;
+        } else if (chars[index]=='+') {
+            index++;
+        }
+
+        // 开始解析数字
+        int num = 0;
+        // 解析连续的 0 ~ 9 字符
+        while (index < chars.length && chars[index] <='9' && chars[index] >='0') {
+            // 之前的结果进行10进制的左移
+            int tmp = num * 10;
+            // 判断是否存在溢出，是则按符号位直接返回最大最小值
+            if (tmp / 10 != num) {
+                if (isNegative) return Integer.MIN_VALUE;
+                else return Integer.MAX_VALUE;
+            }
+            // 加上当前位
+            num = tmp + chars[index] - '0';
+            index++;
+        }
+        // 判断最后一次加法执行后，数字是否溢出。num应该都是正数的计算，如果变成负数说明溢出了
+        if (num < 0) {
+            if (isNegative) return Integer.MIN_VALUE;
+            else return Integer.MAX_VALUE;
+        }
+        // 按符号位处理正负并返回
+        return isNegative ? num * -1 : num;
+    }
+}
+```
+

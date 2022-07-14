@@ -1,0 +1,31 @@
+### 解题思路
+
+&emsp;&emsp;这一题我们使用res[]来记录他们的乘积。 假如数组[a,b,c,d,e]
+1. 第一次循环我们得到的值是:当前下标前面的所有元素的乘积 res = [1, a, a*b, a*b*c, a*b*c*d]
+2. 第二次循环我们得到的是:res 反向遍历，然后错位乘积，得到的是当前下标后面的所有元素的乘积。res = [bcde, acde, abde, abce, abcd]
+
+### 代码
+
+* java
+
+```java
+class Solution {
+    public int[] constructArr(int[] a) {
+        int[] res = new int[a.length];
+        int temp = 1;
+        //第一次遍历
+        for(int i = 0;i < a.length; i++){
+            res[i] = temp;
+            temp *= a[i];
+        }
+        temp = 1;
+        //第二次遍历
+        for(int i = a.length - 1;i >= 0; i--){
+            res[i] *= temp;
+            temp *= a[i];
+        }
+        return res;
+    }
+}
+```
+
