@@ -1,0 +1,63 @@
+**时间复杂度**： O(log(10,n))
+**空间复杂度**： O(1)
+
+![image.png](https://pic.leetcode-cn.com/b79dd5a58fcc5fd0353fa7a3c64cc7873e5e7b44c199230bc3ad18e457d641a9-image.png)
+
+**找规律**：
+1. 0 ~ 9 只有一个1，那么如果某数是10的a倍，那么个位上就有a个1;
+2. 10 ~ 99 十位上有10个1，即10 ~ 19，那么如果某数是 100 的a倍，是10的b倍，那么十位有a * 10个1，个位有b个1，共 (a * 10 + b * 1) 个1;
+3. 100 ~ 999 百位上有100个，即100 ~ 199，那么如果某数是 1000 的a倍， 100 的b倍，是10的c倍，那么百位有a * 100个1，十位有b * 10个1，个位有c个1，共 (a * 100 + b * 10 + c) 个1;
+4. .....
+
+**余数规则**
+如果某数是100的x倍，根据余数y判断实际十位共有多少1
+1. y >= 20，那么十位有(x + 1) * 10个1
+2. 10 <= y <20，那么十位有 x * 10 + (y + 1 - 10), 即y + 1 + (x - 1) * 10
+3. y < 10,那么十位有x * 10个1
+
+**案例分析**
+
+如果n = 2012，那么1 ~ 2012共有几个1，
+1. a = 1, b = 10, 根据x, y = divmod(n, b)可知，x = 201， y = 2, 因为2 >= 2 * a，那么个位共有 201 + 1个1, one_count = 202
+2. a = 10, b = 100, 此时x = 20， y = 12， 因为 a <= 12 < 2 * a，那么十位共有 (12 + 1 + (20 -1) * 10)个1, one_count = 202 + 203 = 405
+3. a = 100, b = 1000,  此时x = 2， y = 12， 因为 12 <  a，那么百位共有 (2 * 100)个1, one_count = 405 + 200 = 605
+4. a = 1000, b = 100000,  此时x = 0， y = 2012， 因为 2012 >=  2 * a，那么千位共有1000个1, one_count = 605 + 1000 = 1605
+
+* 
+
+```
+class Solution:
+    def countDigitOne(self, n: int) ->  int:
+        a, b, one_count = 1, 10, 0
+        while n >= a:
+            x, y = divmod(n, b)
+            
+            if y >= a * 2:
+                one_count += (x + 1) * a
+            elif y >= a:
+                one_count += y + 1 + (x - 1) * a
+            else:
+                one_count += x * a 
+
+            a, b = b, b*10 
+        
+        return one_count
+```
+
+优化后
+
+* 
+
+```
+class Solution:
+    def countDigitOne(self, n: int) ->  int:
+        a, one_count = 1, 0
+        while n >= a:
+            x, y = divmod(n, a * 10)
+            one_count += x * a + min(a, max(0,  y - a + 1))
+
+            a *= 10 
+        
+        return one_count
+```
+

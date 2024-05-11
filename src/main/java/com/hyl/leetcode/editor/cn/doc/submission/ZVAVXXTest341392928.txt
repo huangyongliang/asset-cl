@@ -1,0 +1,27 @@
+class Solution {
+    public int numSubarrayProductLessThanK(int[] nums, int k) {
+
+        if (k==0){
+            return 0;
+        }
+        int result = 0;
+        int product;
+
+        for(int right = 0 ; right<nums.length;right++){
+            product = 1;
+            for (int left = right;left>=0;left--){
+                product *= nums[left];
+                if (product<k){
+                    result++;
+                }else {
+                    break;
+                }
+            }
+
+        }
+        return result;
+    }
+}
+
+//runtime:883 ms
+//memory:47.9 MB

@@ -1,0 +1,74 @@
+### 解题思路
+
+采用先序遍历序列化即可
+反序列化时也采用先序遍历
+
+### 代码
+
+* java
+
+```java
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+public class Codec {
+    int pos = 0;
+    void doSerialize(TreeNode node, StringBuilder sb) {
+        if (node == null) {
+            sb.append("null,");
+            return;
+        }
+        sb.append(node.val).append(',');
+        doSerialize(node.left, sb);
+        doSerialize(node.right, sb);
+    }
+
+    // Encodes a tree to a single string.
+    public String serialize(TreeNode root) {
+        StringBuilder sb = new StringBuilder();
+        doSerialize(root, sb);
+        return sb.substring(0, sb.length() - 1);
+    }
+
+    TreeNode doDeserialize(char[] cs) {
+        if (cs[pos] == 'n') {
+            pos += 5;
+            return null;
+        }
+        TreeNode node = new TreeNode(getNumber(cs));
+        node.left = doDeserialize(cs);
+        node.right = doDeserialize(cs);
+        return node;
+    }
+
+    int getNumber(char[] cs) {
+        int res = 0;
+        if (cs[pos] == '-') {
+            pos++;
+            while (cs[pos] != ',') res = res * 10 - cs[pos++] + '0';
+        }
+        else {
+            while (cs[pos] != ',') res = res * 10 + cs[pos++] - '0';
+        } 
+        pos++; // 去除 ,
+        return res;
+    }
+    
+    // Decodes your encoded data to tree.
+    public TreeNode deserialize(String data) {
+        pos = 0;
+        return doDeserialize(data.toCharArray());
+    }
+}
+
+// Your Codec object will be instantiated and called as such:
+// Codec codec = new Codec();
+// codec.deserialize(codec.serialize(root));
+```
+
