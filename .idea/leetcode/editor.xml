@@ -157,6 +157,17 @@
             </LeetcodeEditor>
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/com/hyl/leetcode/editor/cn/CombinationsTest.java">
+          <value>
+            <LeetcodeEditor>
+              <option name="contentPath" value="$PROJECT_DIR$/src/main/java/com/hyl/leetcode/editor/cn/doc/content/CombinationsTest.md" />
+              <option name="frontendQuestionId" value="leetcode.cn77" />
+              <option name="host" value="leetcode.cn" />
+              <option name="path" value="$PROJECT_DIR$/src/main/java/com/hyl/leetcode/editor/cn/CombinationsTest.java" />
+              <option name="titleSlug" value="combinations" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/main/java/com/hyl/leetcode/editor/cn/CongWeiDaoTouDaYinLianBiaoLcofTest.java">
           <value>
             <LeetcodeEditor>
@@ -729,6 +740,17 @@
             </LeetcodeEditor>
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/com/hyl/leetcode/editor/cn/MinimumWindowSubstringTest.java">
+          <value>
+            <LeetcodeEditor>
+              <option name="contentPath" value="$PROJECT_DIR$/src/main/java/com/hyl/leetcode/editor/cn/doc/content/MinimumWindowSubstringTest.md" />
+              <option name="frontendQuestionId" value="leetcode.cn76" />
+              <option name="host" value="leetcode.cn" />
+              <option name="path" value="$PROJECT_DIR$/src/main/java/com/hyl/leetcode/editor/cn/MinimumWindowSubstringTest.java" />
+              <option name="titleSlug" value="minimum-window-substring" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/main/java/com/hyl/leetcode/editor/cn/MultiplyStringsTest.java">
           <value>
             <LeetcodeEditor>
@@ -1048,6 +1070,17 @@
             </LeetcodeEditor>
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/com/hyl/leetcode/editor/cn/SearchA2dMatrixTest.java">
+          <value>
+            <LeetcodeEditor>
+              <option name="contentPath" value="$PROJECT_DIR$/src/main/java/com/hyl/leetcode/editor/cn/doc/content/SearchA2dMatrixTest.md" />
+              <option name="frontendQuestionId" value="leetcode.cn74" />
+              <option name="host" value="leetcode.cn" />
+              <option name="path" value="$PROJECT_DIR$/src/main/java/com/hyl/leetcode/editor/cn/SearchA2dMatrixTest.java" />
+              <option name="titleSlug" value="search-a-2d-matrix" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/main/java/com/hyl/leetcode/editor/cn/SearchInRotatedSortedArrayTest.java">
           <value>
             <LeetcodeEditor>
@@ -1169,6 +1202,17 @@
             </LeetcodeEditor>
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/com/hyl/leetcode/editor/cn/SortColorsTest.java">
+          <value>
+            <LeetcodeEditor>
+              <option name="contentPath" value="$PROJECT_DIR$/src/main/java/com/hyl/leetcode/editor/cn/doc/content/SortColorsTest.md" />
+              <option name="frontendQuestionId" value="leetcode.cn75" />
+              <option name="host" value="leetcode.cn" />
+              <option name="path" value="$PROJECT_DIR$/src/main/java/com/hyl/leetcode/editor/cn/SortColorsTest.java" />
+              <option name="titleSlug" value="sort-colors" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/main/java/com/hyl/leetcode/editor/cn/SpiralMatrixIiTest.java">
           <value>
             <LeetcodeEditor>
@@ -1210,6 +1254,17 @@
               <option name="host" value="leetcode.cn" />
               <option name="path" value="$PROJECT_DIR$/src/main/java/com/hyl/leetcode/editor/cn/StringToIntegerAtoiTest.java" />
               <option name="titleSlug" value="string-to-integer-atoi" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/com/hyl/leetcode/editor/cn/SubsetsTest.java">
+          <value>
+            <LeetcodeEditor>
+              <option name="contentPath" value="$PROJECT_DIR$/src/main/java/com/hyl/leetcode/editor/cn/doc/content/SubsetsTest.md" />
+              <option name="frontendQuestionId" value="leetcode.cn78" />
+              <option name="host" value="leetcode.cn" />
+              <option name="path" value="$PROJECT_DIR$/src/main/java/com/hyl/leetcode/editor/cn/SubsetsTest.java" />
+              <option name="titleSlug" value="subsets" />
             </LeetcodeEditor>
           </value>
         </entry>
